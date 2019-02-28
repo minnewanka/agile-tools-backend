@@ -1,0 +1,104 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Agile App API documentation",
+    "version": "1.0.0",
+    "title": "SII CANADA - Agile App"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "room",
+      "description": "Room of the meeting"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/rooms": {
+      "post": {
+        "tags": [
+          "room"
+        ],
+        "summary": "create a new room",
+        "description": "",
+        "operationId": "addRoom",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "room that need to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Room"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Request body should have a 'title' field"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "room"
+        ],
+        "summary": "find all rooms",
+        "description": "",
+        "operationId": "getRooms",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Room"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Room": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "idRoom": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string",
+          "example": "room's name"
+        }
+      },
+      "xml": {
+        "name": "Room"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+[
+    {
+      "idParticipant" : 4367,
+      "pseudo" : "TOTO",
+      "idRoom" : 12345
+    },
+    {
+      "idParticipant" : 34576,
+      "pseudo" : "TATA",
+      "idRoom" : 12345
+    },
+    {
+      "idParticipant" : 98723,
+      "pseudo" : "TUTU",
+      "idRoom" : 6789
+    }
+]

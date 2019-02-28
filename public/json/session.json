@@ -1,0 +1,26 @@
+[
+    {
+      "idRoom" : 12345,
+      "title" : "ROOM 1",
+      "participants": [
+        {
+            "idParticipant" : 4367,
+            "pseudo" : "TOTO"
+          },
+          {
+            "idParticipant" : 34576,
+            "pseudo" : "TATA"
+          }
+      ]
+    },
+    {
+      "idRoom" : 6789,
+      "title" : "ROOM 2",
+      "participants": [
+        {
+            "idParticipant" : 98723,
+            "pseudo" : "TUTU"
+          }
+      ]
+    }
+]
