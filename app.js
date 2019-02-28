@@ -18,7 +18,6 @@ var api = new ParseServer({
     cloud: process.env.CLOUD_CODE_MAIN || './cloud/main.js',
     appId: process.env.APP_ID || 'SIIAG',
     masterKey: process.env.MASTER_KEY || 'qWapk8BYDbUdnfMl3hZ8b2yTAgglDQ', 
-    serverURL: process.env.SERVER_URL || 'https://localhost:1337/parse', 
     liveQuery: {
       classNames: ['Vote']
     }
@@ -45,7 +44,7 @@ app.use(mountPath, api)
 var port = process.env.PORT || 1337
 var httpServer = require('http').createServer(app)
 
-httpServer.listen(1337, function() {
+httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.')
 })
 
