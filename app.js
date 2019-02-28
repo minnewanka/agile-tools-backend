@@ -42,10 +42,10 @@ app.use(mountPath, api)
 
 //app.listen(1337, () => {})
 
-var port = process.env.PORT || 8080
+var port = process.env.PORT || 1337
 var httpServer = require('http').createServer(app)
 
-httpServer.listen(1337, function() {
+httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.')
 })
 
