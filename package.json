@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/babel-node ./bin/www",
+    "start": "node_modules/.bin/nodemon app.js --exec babel-node --",
     "start-prod": "node_modules/.bin/babel-node ./bin/www",
     "lint": "node_modules/.bin/eslint ./",
     "test": "mocha --compilers js:babel-core/register --timeout 5000 --exit"

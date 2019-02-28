@@ -18,7 +18,7 @@ var api = new ParseServer({
     cloud: process.env.CLOUD_CODE_MAIN || './cloud/main.js',
     appId: process.env.APP_ID || 'SIIAG',
     masterKey: process.env.MASTER_KEY || 'qWapk8BYDbUdnfMl3hZ8b2yTAgglDQ', 
-    serverURL: process.env.SERVER_URL || 'https://localhost:1337/parse', 
+    serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse', 
     liveQuery: {
       classNames: ['Vote']
     }
