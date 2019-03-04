@@ -4,13 +4,12 @@ var Room = Parse.Object.extend("Room")
 var generateCodeNumber = () => {
     var CODE_NUMBER_LENGTH = 5
     var codeNumber = ""
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     for (var i = 0; i < CODE_NUMBER_LENGTH; i++) {
         codeNumber += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return codeNumber
 }
-
 
 /**
  *   Generate an unique code when a new Room is being created
@@ -41,6 +40,5 @@ Parse.Cloud.beforeSave("Room", async (request) => {
             })
     }
     await tryCreateNewCodeNumber()
-
 
 })

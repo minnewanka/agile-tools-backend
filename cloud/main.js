@@ -1,1 +1,2 @@
 import './roomManager'
+import './voteManager'
