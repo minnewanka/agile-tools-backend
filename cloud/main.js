@@ -1,2 +1,3 @@
-import './roomManager'
-import './voteManager'
+import "./roomManager"
+import "./voteManager"
+import "./emailManager"
