@@ -4,7 +4,7 @@ var Room = Parse.Object.extend("Room")
 var generateCodeNumber = () => {
   var CODE_NUMBER_LENGTH = 5
   var codeNumber = ""
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  var possible = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
   for (var i = 0; i < CODE_NUMBER_LENGTH; i++) {
     codeNumber += possible.charAt(Math.floor(Math.random() * possible.length))
   }
