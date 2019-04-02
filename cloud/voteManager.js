@@ -4,11 +4,11 @@ var Vote = Parse.Object.extend("Vote")
 Parse.Cloud.beforeSave("Vote", async request => {
   var vote = request.object
 
-  if (vote.get("username") && vote.get("username").length > 25) {
+  const maxLengthName = 20
+  if (vote.get("username") && vote.get("username").length > maxLengthName) {
     return Promise.reject({
       code: "ERR-003",
-      message:
-        "Participant username length must be less than 25 characters long"
+      message: `Participant username length must be less than ${maxLengthName} characters long`
     })
   }
 

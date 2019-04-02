@@ -16,11 +16,11 @@ var generateCodeNumber = () => {
  */
 Parse.Cloud.beforeSave("Room", async request => {
   var room = request.object
-
-  if (room.get("name").length > 25) {
+  const maxLengthName = 25
+  if (room.get("name").length > maxLengthName) {
     return Promise.reject({
       code: "ERR-004",
-      message: "Room name length must be less than 25 characters long"
+      message: `Room name length must be less than ${maxLengthName} characters long`
     })
   }
 
