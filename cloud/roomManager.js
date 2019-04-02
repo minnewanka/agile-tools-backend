@@ -4,7 +4,7 @@ var Room = Parse.Object.extend("Room")
 var generateCodeNumber = () => {
   var CODE_NUMBER_LENGTH = 5
   var codeNumber = ""
-  var possible = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+  var possible = "123456789"
   for (var i = 0; i < CODE_NUMBER_LENGTH; i++) {
     codeNumber += possible.charAt(Math.floor(Math.random() * possible.length))
   }
@@ -19,7 +19,7 @@ Parse.Cloud.beforeSave("Room", async request => {
 
   if (room.get("name").length > 25) {
     return Promise.reject({
-      code: "ERR-003",
+      code: "ERR-004",
       message: "Room name length must be less than 25 characters long"
     })
   }

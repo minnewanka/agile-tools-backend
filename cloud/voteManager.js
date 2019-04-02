@@ -33,5 +33,20 @@ Parse.Cloud.beforeSave("Vote", async request => {
         }
       })
   }
+
+  var checkifAvailableSpace = async () => {
+    const maxParticipants = 20
+    var query = new Parse.Query(Vote)
+    const count = await query.equalTo("roomCode", vote.get("roomCode")).count()
+    if (count >= maxParticipants) {
+      return Promise.reject({
+        code: "ERR-002",
+        message: `Room with code ${vote.get(
+          "roomCode"
+        )} is full (max ${maxParticipants} participants)`
+      })
+    }
+  }
+  await checkifAvailableSpace()
   await checkIfAlreadyExist()
 })
