@@ -2,15 +2,15 @@
 const nodemailer = require("nodemailer")
 
 let transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
+  host: process.env.STMP_HOST,
   secureConnection: false,
-  port: 587,
+  port: process.env.STMP_PORT,
   tls: {
     ciphers: 'SSLv3'
   },
   auth: {
-    user: "agile-tools@siicanada.com",
-    pass: "@SIIcanada1"
+    user: process.env.STMP_USER,
+    pass: process.env.STMP_PASSWORD
   }
 })
 
