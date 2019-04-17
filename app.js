@@ -1,11 +1,11 @@
 import express from "express"
 import path from "path"
 import logger from "morgan"
+import dotenv from 'dotenv'
 import { ParseServer } from "parse-server"
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger.json"
 import indexRouter from "./routes/index"
-import dotenv from 'dotenv'
 
 dotenv.config()
 
