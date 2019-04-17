@@ -5,6 +5,12 @@ import { ParseServer } from "parse-server"
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger.json"
 import indexRouter from "./routes/index"
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+var testAppId = process.env.APP_ID || "SIIAG"
+console.log("APP_ID = " + testAppId)
 
 const resolve = require("path").resolve
 

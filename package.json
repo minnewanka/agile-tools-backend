@@ -1,10 +1,9 @@
 {
-  "name": "express-poc",
-  "version": "0.0.0",
+  "name": "agile-tools-backend",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/babel-node app.js",
-    "start-prod": "node_modules/.bin/babel-node app.js",
+    "start": "node -r 'dotenv/config' -r 'babel-register' app.js dotenv_config_path=./config/prod/.env",
     "lint": "node_modules/.bin/eslint ./",
     "test": "mocha --compilers js:babel-core/register --timeout 5000 --exit"
   },
@@ -14,6 +13,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^7.0.0",
     "express": "~4.16.0",
     "morgan": "~1.9.0",
     "nodemailer": "^6.1.0",
