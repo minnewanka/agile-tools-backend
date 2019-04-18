@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node -r 'dotenv/config' -r 'babel-register' app.js dotenv_config_path=./config/prod/.env",
+    "start": "node_modules/.bin/babel-node app.js",
     "lint": "node_modules/.bin/eslint ./",
     "test": "mocha --compilers js:babel-core/register --timeout 5000 --exit"
   },
