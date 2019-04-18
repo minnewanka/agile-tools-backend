@@ -1,10 +1,13 @@
 import express from "express"
 import path from "path"
 import logger from "morgan"
+import dotenv from 'dotenv'
 import { ParseServer } from "parse-server"
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger.json"
 import indexRouter from "./routes/index"
+
+dotenv.config({ path: "./config/" + process.env.AGILE_TOOLS_ENV + "/.env" })
 
 const resolve = require("path").resolve
 
@@ -40,7 +43,7 @@ var port = process.env.PORT || 1337
 var httpServer = require("http").createServer(app)
 
 httpServer.listen(port, function() {
-  console.log("parse-server-example running on port " + port + ".")
+  console.log(process.title + " running on port " + port + ".")
 })
 
 // This will enable the Live Query real-time server
