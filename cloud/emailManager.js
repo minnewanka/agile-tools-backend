@@ -2,15 +2,15 @@
 const nodemailer = require("nodemailer")
 
 let transporter = nodemailer.createTransport({
-  host: process.env.STMP_HOST || "localhost",
+  host: process.env.SMTP_HOST || "localhost",
   secureConnection: false,
-  port: process.env.STMP_PORT || 25,
+  port: process.env.SMTP_PORT || 25,
   tls: {
     ciphers: 'SSLv3'
   },
   auth: {
-    user: process.env.STMP_USER || "user",
-    pass: process.env.STMP_PASSWORD || "password"
+    user: process.env.SMTP_USER || "user",
+    pass: process.env.SMTP_PASSWORD || "password"
   }
 })
 
