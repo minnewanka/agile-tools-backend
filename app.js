@@ -2,12 +2,16 @@ import express from "express"
 import path from "path"
 import logger from "morgan"
 import dotenv from 'dotenv'
-import { ParseServer } from "parse-server"
+import {
+  ParseServer
+} from "parse-server"
 import swaggerUi from "swagger-ui-express"
 import swaggerDocument from "./swagger.json"
 import indexRouter from "./routes/index"
 
-dotenv.config({ path: "./config/" + process.env.AGILE_TOOLS_ENV + "/.env" })
+dotenv.config({
+  path: "./config/" + process.env.AGILE_TOOLS_ENV + "/.env"
+})
 
 const resolve = require("path").resolve
 
@@ -22,7 +26,7 @@ var api = new ParseServer({
   masterKey: process.env.MASTER_KEY || "qWapk8BYDbUdnfMl3hZ8b2yTAgglDQ", //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || "http://localhost:1337/parse", // Don't forget to change to https if needed
   liveQuery: {
-    classNames: ["Vote"] // List of classes to support for query subscriptions
+    classNames: ["Room", "Vote"] // List of classes to support for query subscriptions
   }
 })
 
@@ -42,7 +46,7 @@ app.use(mountPath, api)
 var port = process.env.PORT || 1337
 var httpServer = require("http").createServer(app)
 
-httpServer.listen(port, function() {
+httpServer.listen(port, function () {
   console.log(process.title + " running on port " + port + ".")
 })
 
