@@ -24,26 +24,31 @@ Parse.Cloud.beforeSave('Room', async request => {
     })
   }
 
-  var MAX_TRIAL_COUNT = 5
-  var trialCount = 0
-  var tryCreateNewCodeNumber = async () => {
-    trialCount++
-    var newCodeNumber = generateCodeNumber()
-    var query = new Parse.Query(Room)
-    var existingOrder = await query.equalTo('code', newCodeNumber).first()
+  if (!room.get('code')) {
+    var MAX_TRIAL_COUNT = 5
+    var trialCount = 0
+    var tryCreateNewCodeNumber = async () => {
+      trialCount++
+      var newCodeNumber = generateCodeNumber()
+      var query = new Parse.Query(Room)
+      var existingOrder = await query.equalTo('code', newCodeNumber).first()
 
-    if (existingOrder) {
-      if (trialCount >= MAX_TRIAL_COUNT) {
-        throw { code: 1011, message: 'A server error occurred.' }
+      if (existingOrder) {
+        if (trialCount >= MAX_TRIAL_COUNT) {
+          throw {
+            code: 1011,
+            message: 'A server error occurred.'
+          }
+        } else {
+          //code number duplicated, retrying...
+          tryCreateNewCodeNumber()
+        }
       } else {
-        //code number duplicated, retrying...
-        tryCreateNewCodeNumber()
+        //set code room ..")
+        var room = request.object
+        room.set('code', newCodeNumber)
       }
-    } else {
-      //set code room ..")
-      var room = request.object
-      room.set('code', newCodeNumber)
     }
+    await tryCreateNewCodeNumber()
   }
-  await tryCreateNewCodeNumber()
 })
