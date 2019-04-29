@@ -47,6 +47,8 @@ Parse.Cloud.beforeSave('Room', async request => {
         //set code room ..")
         var room = request.object
         room.set('code', newCodeNumber)
+        //init ceremony
+        room.set('ceremony', "pokerplanning")
       }
     }
     await tryCreateNewCodeNumber()
