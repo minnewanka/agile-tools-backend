@@ -25,30 +25,24 @@ pipeline {
       }
     }
     
-    stage ('Code evaluation') {
-      parallel {
-        stage ('test') {
-          steps {
-            // Start a docker image with mongo database tu run tests
-            sh 'docker run -d -p 27017:27017 --name ' + MONGO_CONTAINER_NAME + ' mongo:3.4-jessie'
-            sh 'npm run test'
-          }
-        }
-
-        stage ('linter') {
-          steps {
-            sh 'npm run lint'
-          }
-        }
+    stage ('Linter') {
+      steps {
+        sh 'npm run lint'
       }
     } 
 
-  }
-  
-  post {
-    // Whatever happens, kill the docker process before exit
-    always {
-      sh 'docker rm -f ' + MONGO_CONTAINER_NAME
+     stage ('Zip packaging') {
+      steps {      
+
+          sh 'zip -r agile-backend.zip ./  -x *.git* ./node_modules/\\*'
+      }
     }
+
+    stage ('Build Docker Image') {
+      steps {
+          sh 'docker build -f ./docker/Dockerfile ./ -t agile-tools-backend --network=host'
+      }
+    }
+    
   }
 }
