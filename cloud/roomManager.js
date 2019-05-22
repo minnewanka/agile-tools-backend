@@ -81,3 +81,13 @@ Parse.Cloud.afterSave('Room', async request => {
     await updateStats()
   }
 })
+
+Parse.Cloud.afterDelete('Room', async request => {
+  var room = request.object
+  const Vote = Parse.Object.extend('Vote')
+  const queryVote = new Parse.Query(Vote)
+  queryVote.equalTo('roomCode', room.get("code"))
+  const results = await queryVote.find()
+  await Promise.all(results.map(result => result.destroy()))
+
+})
