@@ -54,3 +54,30 @@ Parse.Cloud.beforeSave('Room', async request => {
     await tryCreateNewCodeNumber()
   }
 })
+
+Parse.Cloud.afterSave('Room', async request => {
+  // It's a new room 
+  if (request.object.existed() === false) {
+    var updateStats = async () => {
+      const Stats = Parse.Object.extend("Stats")
+      var queryStats = new Parse.Query(Stats)
+      queryStats.equalTo("key", "totalRooms")
+      const totalRoomsObj = await queryStats.first()
+
+      // if the counter exist
+      if (totalRoomsObj) {
+        totalRoomsObj.set("value", totalRoomsObj.get("value") + 1)
+        return totalRoomsObj.save()
+
+      } // if it is the first time we insert a room, we create the counter
+      else {
+
+        const totalRoomsStats = new Stats()
+        totalRoomsStats.set("key", "totalRooms")
+        totalRoomsStats.set("value", 1)
+        return totalRoomsStats.save()
+      }
+    }
+    await updateStats()
+  }
+})
