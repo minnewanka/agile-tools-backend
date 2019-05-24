@@ -99,6 +99,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
@@ -135,6 +138,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -202,7 +208,7 @@
         "parameters": [{
             "in": "path",
             "name": "id",
-            "description": "room id",
+            "description": "vote id",
             "required": true,
             "type": "string"
           }, {
@@ -251,7 +257,7 @@
         "parameters": [{
           "in": "path",
           "name": "id",
-          "description": "room id",
+          "description": "vote id",
           "required": true,
           "type": "string"
         }, {
@@ -290,7 +296,7 @@
         "parameters": [{
           "in": "path",
           "name": "id",
-          "description": "room id",
+          "description": "vote id",
           "required": true,
           "type": "string"
         }, {
@@ -356,7 +362,6 @@
       "required": [
         "name",
         "id",
-        "code",
         "ceremony"
       ],
       "properties": {
@@ -364,11 +369,6 @@
           "type": "string",
           "example": "abc",
           "description": "room's name"
-        },
-        "code": {
-          "type": "string",
-          "example": "12345",
-          "description": "room's code"
         },
         "ceremony": {
           "type": "string",
