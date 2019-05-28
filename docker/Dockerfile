@@ -11,5 +11,5 @@ RUN unzip ./home/agile-backend.zip -d /home/agile-backend/
 
 WORKDIR /home/agile-backend/
 RUN npm install
-EXPOSE 25 1337
+EXPOSE 587 1337
 CMD [ "npm", "run", "start" ]
