@@ -5,26 +5,29 @@
     "version": "1.0.0",
     "title": "SII CANADA - Agile App"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "tags": [
-    {
-      "name": "room",
-      "description": "Room of the meeting"
-    }
-  ],
+  "basePath": "/parse",
+  "tags": [{
+    "name": "Room",
+    "description": "Room of the meeting"
+  }, {
+    "name": "Vote",
+    "description": "Participant's vote"
+  }, {
+    "name": "Functions",
+    "description": "Parse custom functions"
+  }],
   "schemes": [
     "http"
   ],
   "paths": {
-    "/rooms": {
+    "/classes/Room": {
       "post": {
         "tags": [
-          "room"
+          "Room"
         ],
         "summary": "create a new room",
         "description": "",
-        "operationId": "addRoom",
+        "operationId": "createRoom",
         "consumes": [
           "application/json",
           "application/xml"
@@ -32,7 +35,13 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
+        "parameters": [{
+            "in": "header",
+            "name": "X-Parse-Application-Id",
+            "description": "application id",
+            "required": true,
+            "type": "string"
+          },
           {
             "in": "body",
             "name": "body",
@@ -48,52 +57,364 @@
             "description": "Created"
           },
           "400": {
-            "description": "Request body should have a 'title' field"
+            "description": "Error"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/classes/Room/{id}": {
+      "delete": {
+        "tags": [
+          "Room"
+        ],
+        "summary": "delete a new room",
+        "description": "",
+        "operationId": "deleteRoom",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "description": "room id",
+          "required": true,
+          "type": "string"
+        }, {
+          "in": "header",
+          "name": "X-Parse-Application-Id",
+          "description": "application id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       },
       "get": {
         "tags": [
-          "room"
+          "Room"
         ],
-        "summary": "find all rooms",
+        "summary": "get a room",
         "description": "",
-        "operationId": "getRooms",
+        "operationId": "getRoom",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
         "produces": [
           "application/json"
         ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "description": "room id",
+          "required": true,
+          "type": "string"
+        }, {
+          "in": "header",
+          "name": "X-Parse-Application-Id",
+          "description": "application id",
+          "required": true,
+          "type": "string"
+        }],
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/classes/Vote/": {
+      "post": {
+        "tags": [
+          "Vote"
+        ],
+        "summary": "create a new vote",
+        "description": "",
+        "operationId": "createVote",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+            "in": "header",
+            "name": "X-Parse-Application-Id",
+            "description": "application id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "vote that need to be created",
+            "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Room"
-              }
+              "$ref": "#/definitions/Vote"
             }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "400": {
-            "description": "Invalid status value"
+            "description": "Error"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/classes/Vote/{id}": {
+      "put": {
+        "tags": [
+          "Vote"
+        ],
+        "summary": "update vote",
+        "description": "",
+        "operationId": "updateVote",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+            "in": "path",
+            "name": "id",
+            "description": "vote id",
+            "required": true,
+            "type": "string"
+          }, {
+            "in": "header",
+            "name": "X-Parse-Application-Id",
+            "description": "application id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "vote that need to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Vote"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update"
+          },
+          "400": {
+            "description": "Error"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vote"
+        ],
+        "summary": "delete vote",
+        "description": "",
+        "operationId": "deleteVote",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "description": "vote id",
+          "required": true,
+          "type": "string"
+        }, {
+          "in": "header",
+          "name": "X-Parse-Application-Id",
+          "description": "application id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Delete"
+          },
+          "400": {
+            "description": "Error"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Vote"
+        ],
+        "summary": "delete vote",
+        "description": "",
+        "operationId": "getVote",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "description": "vote id",
+          "required": true,
+          "type": "string"
+        }, {
+          "in": "header",
+          "name": "X-Parse-Application-Id",
+          "description": "application id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Object Found"
+          },
+          "400": {
+            "description": "Error"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/functions/getAppStats": {
+      "post": {
+        "tags": [
+          "Functions"
+        ],
+        "summary": "get App stats",
+        "description": "",
+        "operationId": "getStats",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+          "in": "header",
+          "name": "X-Parse-Application-Id",
+          "description": "application id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "ERROR"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
     }
+
   },
   "definitions": {
     "Room": {
       "type": "object",
       "required": [
         "name",
-        "photoUrls"
+        "id",
+        "ceremony"
       ],
       "properties": {
-        "idRoom": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "title": {
+        "name": {
           "type": "string",
-          "example": "room's name"
+          "example": "abc",
+          "description": "room's name"
+        },
+        "ceremony": {
+          "type": "string",
+          "example": "pokerplanning",
+          "description": "current ceremony in room"
+        }
+      },
+      "xml": {
+        "name": "Room"
+      }
+    },
+    "Vote": {
+      "type": "object",
+      "required": [
+        "id",
+        "username",
+        "roomCode",
+        "pokerplanning",
+        "tshirt",
+        "trafficlight"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "abc",
+          "description": "username of participant who voted"
+        },
+        "roomCode": {
+          "type": "string",
+          "example": "12345",
+          "description": "room's code where participant who voted "
+        },
+        "pokerplanning": {
+          "type": "string",
+          "example": "5",
+          "description": "value voted for ceremony 'Poker Planning' "
+        },
+        "tshirt": {
+          "type": "string",
+          "example": "XXL",
+          "description": "value voted for ceremony 'T Shirt' "
+        },
+        "trafficlight": {
+          "type": "string",
+          "example": "red",
+          "description": "value voted for ceremony 'Traffic Light' "
         }
       },
       "xml": {

@@ -64,3 +64,53 @@ Parse.Cloud.beforeSave('Vote', async request => {
   await checkifAvailableSpace()
   await checkIfAlreadyExist()
 })
+
+Parse.Cloud.afterSave('Vote', async request => {
+
+
+  var updateStats = async () => {
+    const Stats = Parse.Object.extend("Stats")
+    var queryStats = new Parse.Query(Stats)
+    // It's a new participant 
+    if (request.object.existed() === false) {
+      queryStats.equalTo("key", "totalParticipants")
+      const totalParticipantsObj = await queryStats.first()
+
+      // if the counter exist
+      if (totalParticipantsObj) {
+        totalParticipantsObj.set("value", totalParticipantsObj.get("value") + 1)
+        return totalParticipantsObj.save()
+
+      } // if it is the first time we insert a participant, we create the counter
+      else {
+
+        const totalParticipantsStats = new Stats()
+        totalParticipantsStats.set("key", "totalParticipants")
+        totalParticipantsStats.set("value", 1)
+        return totalParticipantsStats.save()
+      }
+
+    }
+    // It's a vote
+    else {
+      queryStats.equalTo("key", "totalVotes")
+      const totalVotesObj = await queryStats.first()
+
+      // if the counter exist
+      if (totalVotesObj) {
+        totalVotesObj.set("value", totalVotesObj.get("value") + 1)
+        return totalVotesObj.save()
+
+      } // if it is the first time we insert a vote, we create the counter
+      else {
+
+        const totalVotesStats = new Stats()
+        totalVotesStats.set("key", "totalVotes")
+        totalVotesStats.set("value", 1)
+        return totalVotesStats.save()
+      }
+    }
+  }
+  await updateStats()
+
+})
