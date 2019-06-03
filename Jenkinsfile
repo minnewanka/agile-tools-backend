@@ -5,6 +5,8 @@ pipeline {
   environment {
     def branchRenamed = env.BRANCH_NAME.replace('/', '_')
     MONGO_CONTAINER_NAME = "mongo_test_${branchRenamed}"
+    APP_NAME = 'agile-backend'
+    APP_VERSION = '1.0.1-SNAPSHOT'
   }
 
   stages { 
@@ -31,10 +33,23 @@ pipeline {
       }
     } 
 
-     stage ('Zip packaging') {
+     stage ('Zip application') {
       steps {      
 
-          sh 'zip -r agile-backend.zip ./  -x *.git* ./node_modules/\\*'
+          sh 'zip -r ${env.APP_NAME}.zip ./  -x *.git* ./node_modules/\\*'
+      }
+    }
+
+    stage ('Save on Nexus') { 
+      steps {
+        deployToMavenRepo (
+          extractInfos : 'package.json',
+          version : "${env.APP_VERSION}",
+          artifactId : "${env.APP_NAME}",
+          groupId : "com.siicanada.appagile",
+          packageLocation : './',
+          fileType : "zip"
+        )
       }
     }
 
