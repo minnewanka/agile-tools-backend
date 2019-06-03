@@ -35,7 +35,7 @@ pipeline {
 
     stage ('Zip application') {
       steps {      
-          sh "zip -r ${env.APP_NAME}.zip ./  -x *.git* ./node_modules/\\*"
+          sh "zip -r ${env.APP_NAME}-${env.APP_VERSION}.zip ./  -x *.git* ./node_modules/\\*"
       }
     }
 
